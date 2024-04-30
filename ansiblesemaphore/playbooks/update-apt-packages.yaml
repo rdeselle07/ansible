@@ -5,7 +5,7 @@
   become_method: sudo
   become_user: root
   tasks:
-    - name: update apt packages
+    - name: Update Apt Packages
       apt:
         update_cache: yes
         upgrade: yes
