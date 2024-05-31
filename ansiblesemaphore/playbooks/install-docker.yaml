@@ -1,0 +1,68 @@
+- hosts: all
+  become: yes
+  gather_facts: true
+  tasks:
+  - name: Install docker packages
+    remote_user: rdeselle
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    tags:
+      - docker
+  - name: Add Docker s official GPG key
+    remote_user: rdeselle
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+    tags:
+      - docker
+  - name: Verify that we have the key with the fingerprint
+    remote_user: rdeselle
+    apt_key:
+      id: 0EBFCD88
+      state: present
+    tags:
+      - docker
+  - name: Set up the stable repository
+    remote_user: rdeselle
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      state: present
+      update_cache: yes
+    tags:
+      - docker
+  - name: Update apt packages
+    remote_user: rdeselle
+    apt:
+      update_cache: yes
+    tags:
+      - docker
+  - name: Install docker
+    remote_user: rdeselle
+    apt:
+      name: docker-ce
+      state: present
+      update_cache: yes
+    #notify: Start docker on boot
+    tags:
+      - docker
+  - name: Add remote "ubuntu" user to "docker" group
+    remote_user: rdeselle
+    user:
+      name: "rdeselle"
+      group: "docker"
+      append: yes
+    tags:
+      - docker
+  - name: Install docker-compose
+    remote_user: rdeselle
+    get_url: 
+      url : https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-Linux-x86_64
+      dest: /usr/local/bin/docker-compose
+      mode: 'u+x,g+x'
