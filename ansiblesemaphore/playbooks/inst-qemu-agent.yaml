@@ -2,6 +2,7 @@
 - name: Install qemu-guest-agent package
   hosts: 192.168.100.47
   become: true
+  sudo: y#es
   become_method: ansible.builtin.sudo
 
   tasks:
