@@ -1,0 +1,8 @@
+---
+- name: Update Pi-hole
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Run shell command to update Pi-hole
+      shell: pihole -up
