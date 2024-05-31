@@ -1,0 +1,20 @@
+---
+- name: Check disk space
+  hosts: all
+  gather_facts: False
+
+  tasks:
+
+    - name: Get disk usage
+      command: df -h /
+      register: disk_usage_output
+
+    #- name: Check disk space available
+     # shell: df -h / | awk 'NR==2 {print $5}'
+      #register: df_usage
+
+    - name: Spit out the details
+      ansible.builtin.debug:
+        #var: disk_usage_output
+        #var: df_usage
+        msg: "{{ disk_usage_output ['stdout_lines'] }}"
