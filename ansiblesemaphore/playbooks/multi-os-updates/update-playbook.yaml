@@ -3,6 +3,7 @@
 - name: Update Windows, Arch Linux, and Ubuntu
   hosts: all
   become: yes
+  become_user: root
   tasks:
     - name: Gather facts
       ansible.builtin.setup:
@@ -46,7 +47,7 @@
       ansible.builtin.apt:
         upgrade: dist
         update_cache: true
-        become_user: root
+        
 
     - name: Check if a reboot is required on Ubuntu
       when: ansible_facts['os_family'] == 'Debian'
