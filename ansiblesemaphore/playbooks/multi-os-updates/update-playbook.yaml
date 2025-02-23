@@ -2,6 +2,7 @@
 # Jims Garage
 - name: Update Windows, Arch Linux, and Ubuntu
   hosts: all
+  become: yes
   tasks:
     - name: Gather facts
       ansible.builtin.setup:
