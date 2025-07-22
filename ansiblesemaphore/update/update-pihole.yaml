@@ -5,4 +5,4 @@
 
   tasks:
     - name: Run shell command to update Pi-hole
-      shell: pihole -up
+      shell: sudo pihole -up
