@@ -1,7 +1,6 @@
 ---
 - name: Update and upgrade apt packages
   hosts: all
-  sudo: yes
   become: yes
   tasks:
     # Upgrade packages
