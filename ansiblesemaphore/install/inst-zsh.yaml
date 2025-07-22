@@ -2,6 +2,7 @@
 - name: Install zsh
   hosts: "{{ my_hosts | d([]) }}"
   become: true
+  become_user: root
 
   tasks:
     - name: Install zsh
